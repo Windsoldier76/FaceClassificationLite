@@ -2,13 +2,14 @@ from keras.callbacks import CSVLogger, ModelCheckpoint, EarlyStopping
 from keras.callbacks import ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 
+import os
+
 from models.cnn import mini_XCEPTION
 from utils.datasets import DataManager
 from utils.datasets import split_data
 from utils.preprocessor import preprocess_input
 
-# use GPU
-import os
+# set -1 to use CPU, set 0~n to use GPU
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # parameters
