@@ -6,10 +6,12 @@ from models.cnn import mini_XCEPTION
 from utils.datasets import DataManager
 from utils.datasets import split_data
 from utils.preprocessor import preprocess_input
+
+# use GPU
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # parameters
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 batch_size = 32
 num_epochs = 10000
 input_shape = (64, 64, 1)
