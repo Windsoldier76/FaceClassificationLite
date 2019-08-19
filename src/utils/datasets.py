@@ -64,12 +64,12 @@ def get_labels(dataset_name):
 
 
 # This function has not use yet
-def get_class_to_arg(dataset_name='fer2013'):
+'''def get_class_to_arg(dataset_name='fer2013'):
     if dataset_name == 'fer2013':
         return {'angry': 0, 'disgust': 1, 'fear': 2, 'happy': 3, 'sad': 4,
                 'surprise': 5, 'neutral': 6}
     else:
-        raise Exception('Invalid dataset name')
+        raise Exception('Invalid dataset name')'''
 
 
 def split_data(x, y, validation_split=.2):
