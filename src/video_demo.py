@@ -18,10 +18,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 # parameters for loading data and images
 detection_model_path = '../trained_models/detection_models/haarcascade_frontalface_default.xml'
-emotion_model_path = '../trained_models/fer2013/fer2013_mini_XCEPTION.102-0.66.hdf5'
+emotion_model_path = '../test/fer2013_mini_XCEPTION.102-0.66.hdf5'
 emotion_labels = get_labels('fer2013')
 
-# hyper-parameters for bounding boxes shape
+# hyper-parameters for bounding boxes shape`
 frame_window = 10
 emotion_offsets = (20, 40)
 
