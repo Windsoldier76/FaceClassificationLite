@@ -6,16 +6,23 @@ from models.cnn import mini_XCEPTION
 from utils.datasets import DataManager
 from utils.datasets import split_data
 from utils.preprocessor import preprocess_input
+import os
 
 # parameters
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 batch_size = 32
-num_epochs = 100
+num_epochs = 10000
 input_shape = (64, 64, 1)
 validation_split = .2
 verbose = 1
 num_classes = 7
 patience = 50
-base_path = '../trained_models/'
+test_mode = 1
+
+if test_mode == 0:
+    base_path = '../trained_models/'
+elif test_mode == 1:
+    base_path = '../test/'
 
 # data generator
 data_generator = ImageDataGenerator(
