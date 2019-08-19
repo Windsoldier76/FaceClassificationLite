@@ -1,0 +1,4 @@
+2019.08.19
+    1.create this repository
+    2.left cnn, train, and some utils
+    3.just train 47 times in this model
