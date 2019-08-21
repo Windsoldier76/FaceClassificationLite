@@ -14,7 +14,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # parameters
 batch_size = 32
-num_epochs = 10000
+num_epochs = 100
 input_shape = (64, 64, 1)
 validation_split = .2
 verbose = 1
@@ -44,12 +44,12 @@ model.compile(optimizer='adam', loss='categorical_crossentropy',
 model.summary()
 
 
-datasets = ['fer2013']
+datasets = ['jaffe']
 for dataset_name in datasets:
     print('Training dataset:', dataset_name)
 
     # callbacks
-    log_file_path = base_path + dataset_name + '/_emotion_training.log'
+    log_file_path = base_path + dataset_name + '/'+ dataset_name + '_emotion_training.log'
     csv_logger = CSVLogger(log_file_path, append=False)
     early_stop = EarlyStopping('val_loss', patience=patience)
     reduce_lr = ReduceLROnPlateau('val_loss', factor=0.1,

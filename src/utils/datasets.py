@@ -17,8 +17,8 @@ class DataManager(object):
             self.dataset_path = '../datasets/fer2013/fer2013.csv'
         elif self.dataset_name == 'CK+':
             self.dataset_path = '../datasets/CK+/'
-        elif self.dataset_name == 'jaffedbase':
-            self.dataset_path = '../datasets/jaffedbase'
+        elif self.dataset_name == 'jaffe':
+            self.dataset_path = '../datasets/jaffe/jaffe.csv'
         else:
             raise Exception(
                     'Incorrect dataset name, please input fer2013')
@@ -28,8 +28,8 @@ class DataManager(object):
             ground_truth_data = self._load_fer2013()
         elif self.dataset_name == 'CK+':
             ground_truth_data = self._load_CKplus()
-        elif self.dataset_name == 'jaffedbase':
-            ground_truth_data = self._load_jaffedbase()
+        elif self.dataset_name == 'jaffe':
+            ground_truth_data = self._load_jaffe()
         return ground_truth_data
 
     def _load_fer2013(self):
@@ -47,7 +47,23 @@ class DataManager(object):
         emotions = pd.get_dummies(data['emotion']).as_matrix()
         return faces, emotions
 
-    # TODO(SouthCold): support CK+ and jaffedbase, two function is ok
+    # TODO(SouthCold): support CK+
+
+    def _load_jaffe(self):
+        data = pd.read_csv(self.dataset_path)
+        pixels = data['pixels'].tolist()
+        width, height = 48, 48
+        faces = []
+        for pixel_sequence in pixels:
+            face = [int(pixel) for pixel in pixel_sequence.split(' ')]
+            face = np.asarray(face).reshape(width, height)
+            face = cv2.resize(face.astype('uint8'), self.image_size)
+            faces.append(face.astype('float32'))
+        faces = np.asarray(faces)
+        faces = np.expand_dims(faces, -1)
+        emotions = pd.get_dummies(data['emotion']).as_matrix()
+        return faces, emotions
+
 
 
 def get_labels(dataset_name):
@@ -56,8 +72,9 @@ def get_labels(dataset_name):
                 4: 'sad', 5: 'surprise', 6: 'neutral'}
     elif dataset_name == 'CK+':
         return {}
-    elif dataset_name == 'jaffedbase':
-        return {}
+    elif dataset_name == 'jaffe':
+        return {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy',
+                4: 'sad', 5: 'surprise', 6: 'neutral'}
     # TODO(SouthCold): add labels for two databases
     else:
         raise Exception('Invalid dataset name')
