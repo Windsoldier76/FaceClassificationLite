@@ -47,8 +47,6 @@ class DataManager(object):
         emotions = pd.get_dummies(data['emotion']).as_matrix()
         return faces, emotions
 
-    # TODO(SouthCold): support CK+
-
     def _load_jaffe(self):
         data = pd.read_csv(self.dataset_path)
         pixels = data['pixels'].tolist()
@@ -64,6 +62,20 @@ class DataManager(object):
         emotions = pd.get_dummies(data['emotion']).as_matrix()
         return faces, emotions
 
+    def _load_CKplus(self):
+        data = pd.read_csv(self.dataset_path)
+        pixels = data['pixels'].tolist()
+        width, height = 48, 48
+        faces = []
+        for pixel_sequence in pixels:
+            face = [int(pixel) for pixel in pixel_sequence.split(' ')]
+            face = np.asarray(face).reshape(width, height)
+            face = cv2.resize(face.astype('uint8'), self.image_size)
+            faces.append(face.astype('float32'))
+        faces = np.asarray(faces)
+        faces = np.expand_dims(faces, -1)
+        emotions = pd.get_dummies(data['emotion']).as_matrix()
+        return faces, emotions
 
 
 def get_labels(dataset_name):
@@ -71,7 +83,8 @@ def get_labels(dataset_name):
         return {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy',
                 4: 'sad', 5: 'surprise', 6: 'neutral'}
     elif dataset_name == 'CK+':
-        return {}
+        return {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy',
+                4: 'sad', 5: 'surprise', 6: 'neutral'}
     elif dataset_name == 'jaffe':
         return {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy',
                 4: 'sad', 5: 'surprise', 6: 'neutral'}

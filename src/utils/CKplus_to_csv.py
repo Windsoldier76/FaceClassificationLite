@@ -14,7 +14,7 @@ def detect(img, cascade):
 
 cascade = cv2.CascadeClassifier("../../trained_models/detection_models/haarcascade_frontalface_default.xml")
 
-f = "../../datasets/jaffe/meta/"
+f = "../../datasets/DataBase/CK+/CKplus"
 fs = os.listdir(f)
 data = np.zeros([213, 48*48], dtype=np.uint8)
 label = np.zeros([213], dtype=int)
@@ -56,7 +56,7 @@ for f1 in fs:
             i = i + 1
 
 
-with open(r"../../datasets/jaffe/jaffe.csv", "w", newline='') as csvfile:
+with open(r"../../datasets/CK+/CKplus.csv", "w", newline='') as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(['emotion', 'pixels'])
     for i in range(len(label)):

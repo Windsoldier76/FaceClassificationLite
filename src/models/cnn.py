@@ -13,7 +13,7 @@ def mini_XCEPTION(input_shape, num_classes, l2_regularization=0.01):
     regularization = l2(l2_regularization)
 
     # base
-        img_input = Input(input_shape)
+    img_input = Input(input_shape)
     x = Conv2D(8, (3, 3), strides=(1, 1), kernel_regularizer = regularization,
                use_bias=False)(img_input)
     x = BatchNormalization()(x)
